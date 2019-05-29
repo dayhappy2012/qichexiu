@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>汽车秀</title>
-    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="./css/ui.css">
+    <script src="./js/jquery.min.js"></script>
 </head>
+
 <body class="android">
 <div class="scroll-content" >
     <div class="scroll">
         <div class="header home-header">
             <div class="toolbar statusbar-padding active">
-                <button class="bar-button current-city"><i class="icon icon-set"></i></button>
-                <button class="bar-button icon-button"><i class="icon icon-msg"></i></button>
+                <button class="bar-button current-city"><a href="register.html" class="icon icon-set"></a></button>
+                <button class="bar-button icon-button"><a href="" class="icon icon-msg"></a></button>
             </div>
         </div>
         <div class="my-info">
             <div class="my-info-background" style="background-color:#fa4949; -webkit-filter:blur(0px)"></div>
             <img class="my-avatar" src="img/my-photo1.jpg">
-            <span class="name">嘻哈杂货铺</span>
+            <span class="name" id="name1">请登录</span>
             <span class="my-vip" style="background:none">普通会员&nbsp;|&nbsp;积分:590&nbsp;|&nbsp;级别:初级</span>
         </div>
         <div class="my-car-shortcut">
@@ -90,6 +92,11 @@
                     <div class="aui-list-cell-cn">浏览历史</div>
                     <div class="aui-list-cell-fr"></div>
                 </a>
+                <a href="javascript:logout();" class="aui-list-cell">
+                    <div class="aui-list-cell-fl"><img src="images/icon-png/icon-n-8.png"></div>
+                    <div class="aui-list-cell-cn">退出</div>
+                    <div class="aui-list-cell-fr"></div>
+                </a>
                 <div class="devider b-line"></div>
             </div>
         </div>
@@ -105,4 +112,20 @@
     <a class="tab-button active" href="my.html"><i class="tab-button-icon icon icon-my"></i><span class="tab-button-txt">我的</span></a>
 </div>
 </body>
+    <script type="text/javascript">
+        var token = localStorage.getItem('che');
+        console.log(token)
+        $.get('http://127.0.0.1:8000/api/my/user/?token=' + token, function (data) {
+            if (data.data.user_info['c_username'] == ""){$('#name1').text('请登录')}else {
+                $('#name1').text(data.data.user_info['c_username']);
+            }
+            console.log(data.data.user_info['c_username'])
+
+        });
+        function logout() {
+            localStorage.removeItem('che');
+            window.location.href="my.html"
+        }
+
+    </script>
 </html>

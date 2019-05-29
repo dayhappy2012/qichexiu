@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>汽车秀</title>
     <link rel="stylesheet" href="css/ui.css">
+    <script src="js/jquery.min.js"></script>
 </head>
 <body class="android">
 
@@ -35,7 +36,7 @@
                         <h1>A</h1>
                     </div>
                 </div>
-                <ul>
+                <ul id="car">
                     <li>
                         <a href="car-page.html">
                             <div class="aui-item-car-img"><img src="img/a1.jpg"></div>
@@ -57,61 +58,6 @@
                 </ul>
             </div>
 
-            <div class="aui-item-aoi-che">
-                <div class=" btn-ss">
-                    <div class="b-line">
-                        <h1>B</h1>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <div class="aui-item-car-img"><img src="img/a1.jpg"></div>
-                            <div class="aui-item-car-tie">奥迪</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="aui-item-car-img"><img src="img/a2.jpg"></div>
-                            <div class="aui-item-car-tie">阿斯顿.马丁</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="aui-item-car-img"><img src="img/a3.jpg"></div>
-                            <div class="aui-item-car-tie">阿尔法.罗密欧</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="aui-item-aoi-che">
-                <div class=" btn-ss">
-                    <div class="b-line">
-                        <h1>C</h1>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <div class="aui-item-car-img"><img src="img/a1.jpg"></div>
-                            <div class="aui-item-car-tie">奥迪</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="aui-item-car-img"><img src="img/a2.jpg"></div>
-                            <div class="aui-item-car-tie">阿斯顿.马丁</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="aui-item-car-img"><img src="img/a3.jpg"></div>
-                            <div class="aui-item-car-tie">阿尔法.罗密欧</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
 
         </div>
@@ -124,6 +70,22 @@
     <a class="tab-button " href="service-list.html"><i class="tab-button-icon icon icon-service"></i><span class="tab-button-txt">服务</span></a>
     <a class="tab-button " href="my.html"><i class="tab-button-icon icon icon-my"></i><span class="tab-button-txt">我的</span></a>
 </div>
+    <script type="text/javascript">
+        $.get('http://127.0.0.1:8000/api/car/list/', function (data) {
+            var roles = '';
+            ///console.log(data.data.car_list)
+            for (var i = 0; i < data.data.car_list.length; i++) {
+                var item = data.data.car_list[i];
+                var car_quote = item['car_quote'];
+                var car_model = item['car_model'];
+                var car_icon = item['car_icon'];
+               // console.log(car)
+               // console.log(img)
+            roles += '<li><a href="#"　id="img'+ i +'"><div class="aui-item-car-img"><img src="' + car_icon + '"></div><div class="aui-item-car-tie">'+ car_model+ "❤" + car_quote +'</div></a></li>'
+        }
+            $("#car").html(roles)
+        })
 
+    </script>
 </body>
 </html>
